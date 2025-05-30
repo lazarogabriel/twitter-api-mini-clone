@@ -14,7 +14,8 @@ namespace twitter.api.domain.Models
         #region Fields
 
         private string _content;
-
+        private User _author;
+        
         #endregion
 
         #region Constructor
@@ -51,7 +52,19 @@ namespace twitter.api.domain.Models
         /// <summary>
         /// User author who creates the tweet.
         /// </summary>
-        public User Author { get; }
+        public User Author
+        {
+            get => _author;
+            set
+            {
+                if (value == null)
+                {
+                    throw new InvalidParameterException(Errors.TweetAuthorIsRequired);
+                }
+
+                _author = value;
+            }
+        }
 
         /// <summary>
         /// Tweet's content.

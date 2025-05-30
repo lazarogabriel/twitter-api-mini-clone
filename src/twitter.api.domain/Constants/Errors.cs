@@ -13,5 +13,6 @@
         public const string AlreadyFollowingUser = "Already following uaser";
         public const string FollowRelationshipNotFound = "Follow relationship not found";
         public const string UserToFollowIsRequired = "User to follow is required";
+        public const string TweetAuthorIsRequired = "Tweet autho is required";
     }
 }
