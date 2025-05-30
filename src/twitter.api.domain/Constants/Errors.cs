@@ -14,5 +14,10 @@
         public const string FollowRelationshipNotFound = "Follow relationship not found";
         public const string UserToFollowIsRequired = "User to follow is required";
         public const string TweetAuthorIsRequired = "Tweet autho is required";
+        public const string PageCannotBeZeroOrLess = "Invalid 'Page' parameter with message: 'Cannot be zero or less'.";
+        public const string PageCannotBeNullWhenIsPaginatedIsTrue = "Invalid 'Page' parameter with message: 'Cannot be null'.";
+        public const string PageSizeCannotBeNullWhenIsPaginatedIsTrue = "Invalid 'PageSize' parameter with message: 'Cannot be null'.";
+        public const string PageSizeCannotBeZeroOrLess = "Invalid 'PageSize' parameter with message: 'Cannot be zero or less'.";
+        public const string UsernameAlreadyExists = "User name already exists";
     }
 }
