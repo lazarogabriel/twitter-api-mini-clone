@@ -37,6 +37,7 @@ namespace twitter.api.domain.Models
         {
             Content = content;
             Author = author;
+            AuthorId = author.Id;
             CreatedAt = DateTime.UtcNow;
         }
 
@@ -65,6 +66,8 @@ namespace twitter.api.domain.Models
                 _author = value;
             }
         }
+
+        public Guid AuthorId { get; }
 
         /// <summary>
         /// Tweet's content.
