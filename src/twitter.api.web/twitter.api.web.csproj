@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\twitter.api.application\twitter.api.application.csproj" />
     <ProjectReference Include="..\twitter.api.data\twitter.api.data.csproj" />
   </ItemGroup>
 

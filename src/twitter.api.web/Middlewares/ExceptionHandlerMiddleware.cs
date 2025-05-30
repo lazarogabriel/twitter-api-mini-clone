@@ -72,6 +72,10 @@ namespace twitter.api.web.Extensions
                     StatusCodes.Status404NotFound,
                     new ErrorResponse(ex.ErrorType, ex.Message, ex.Values.FirstOrDefault()?.ToString())
                 ),
+                AuthenticationException ex => (
+                    StatusCodes.Status401Unauthorized,
+                    new ErrorResponse(ex.ErrorType, ex.Message)
+                ),
                 DomainException ex => (
                     StatusCodes.Status400BadRequest,
                     new ErrorResponse(ex.ErrorType, ex.Message)

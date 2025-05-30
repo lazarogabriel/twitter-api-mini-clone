@@ -24,6 +24,9 @@ builder.Services.AddAutoMapper(typeof(Program));
 // Adds Database
 builder.Services.AddTwitterDatabase(config: configuration);
 
+// Adds http accesor
+builder.Services.AddHttpContextAccessor();
+
 // Adds Services
 builder.Services.AddTwitterServices();
 
