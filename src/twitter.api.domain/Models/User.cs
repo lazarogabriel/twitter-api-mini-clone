@@ -37,6 +37,16 @@ namespace twitter.api.domain.Models
             Tweets = new List<Tweet>();
         }
 
+        /// <summary>
+        /// Domain constructor for testing pourpuses.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="username"></param>
+        public User(Guid id, string username) : this(username)
+        {
+            Id = id;
+        }
+
         #endregion
 
         #region Properties
@@ -57,7 +67,7 @@ namespace twitter.api.domain.Models
         public string Username
         { 
             get => _username; 
-            set
+            private set
             {
                 if (string.IsNullOrWhiteSpace(value))
                 {
