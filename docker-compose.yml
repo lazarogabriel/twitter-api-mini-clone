@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    container_name: twitter_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Pass.12345
+      POSTGRES_DB: TwitterMiniClone
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  api:
+    build:
+      context: .
+      dockerfile: ./src/twitter.api.web/Dockerfile
+    depends_on:
+      - db
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=TwitterMiniClone;Username=postgres;Password=Pass.12345
+    ports:
+      - "5000:80"
+    restart: on-failure
+
+volumes:
+  pgdata:

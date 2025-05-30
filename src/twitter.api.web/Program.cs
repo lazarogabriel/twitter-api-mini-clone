@@ -34,8 +34,8 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     using var scope = app.Services.CreateScope();
-    //var db = scope.ServiceProvider.GetRequiredService<TwitterApiDbContext>();
-    //db.Database.Migrate();
+    var db = scope.ServiceProvider.GetRequiredService<TwitterApiDbContext>();
+    db.Database.Migrate();
 }
 
 app.UseErrorHandler();
@@ -49,7 +49,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(options =>
     {
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "Twitter API V1");
-        options.RoutePrefix = string.Empty; // Para que Swagger esté en la raíz "/"
+        options.RoutePrefix = string.Empty; // Para que Swagger este en la raíz "/"
     });
 }
 
