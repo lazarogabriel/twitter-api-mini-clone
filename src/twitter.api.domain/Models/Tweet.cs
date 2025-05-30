@@ -41,6 +41,18 @@ namespace twitter.api.domain.Models
             CreatedAt = DateTime.UtcNow;
         }
 
+        /// <summary>
+        /// Internal constructor for testing pourpouse.
+        /// </summary>
+        /// <param name="content"></param>
+        /// <param name="author"></param>
+        /// <param name="createdAt"></param>
+        internal Tweet(string content, User author, DateTime createdAt)
+            : this(content, author)
+        {
+            CreatedAt = createdAt;
+        }
+
         #endregion
 
         #region Properties
@@ -96,7 +108,7 @@ namespace twitter.api.domain.Models
         /// <summary>
         /// The moment when the tweet was created.
         /// </summary>
-        public DateTime CreatedAt { get; }
+        public DateTime CreatedAt { get; private set; }
 
         #endregion
     }
