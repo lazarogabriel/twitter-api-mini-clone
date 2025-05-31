@@ -42,8 +42,12 @@ namespace twitter.api.web.Extensions
                 {
                     Title = "Twitter API",
                     Version = "v1",
-                    Description = "API for a Twitter mini-clone. Note: The header 'X-User-Id' is required only for endpoints that act as an authenticated user (timeline, tweets, follow, unfollow, etc.). It is NOT required for admin/test endpoints (create user, etc)."
-                });
+                    Description = @"API for a Twitter mini-clone.
+
+Note: The header 'X-User-Id' is required only for endpoints that act as an authenticated user.
+
+It is NOT required for admin endpoitns; creating a user or see all tweets for example."
+                    });
 
                 // Agrega el header como API Key global (se puede completar desde Swagger UI)
                 options.AddSecurityDefinition("X-User-Id", new OpenApiSecurityScheme

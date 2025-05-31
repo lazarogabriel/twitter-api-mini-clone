@@ -1,6 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using twitter.api.application.Models.Follow;
+using twitter.api.application.Models.Timeline;
 using twitter.api.application.Services.Abstractions;
 using twitter.api.data.DbContexts;
 using twitter.api.domain.Constants;
@@ -41,10 +45,21 @@ namespace twitter.api.application.Services
 
             var tweet = user.CreateTweet(command.Content);
 
-            _dbContext.Tweets.Add(tweet);
+            await _dbContext.Tweets.AddAsync(tweet);
             await _dbContext.CommitAsync();
             
             return tweet;
+        }
+
+        /// <inheritdoc/>
+        public async Task<List<Tweet>> GetAllTweets()
+        {
+            var tweets = await _dbContext.Tweets
+                .AsNoTracking()
+                .Include(t => t.Author)
+                .ToListAsync();
+
+            return tweets;
         }
 
         #endregion

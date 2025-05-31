@@ -59,20 +59,19 @@ namespace twitter.api.web.Controllers
         }
 
         /// <summary>
-        /// Gets all tweets by user id.
+        /// Gets all tweets (Solo para la evaluacion del ejercicio tecnico).
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [ProducesResponseType(typeof(TweetResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<TweetResponse>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAll()
         {
-            var userId = _userContext.GetCurrentUserId();
-
-            var tweets = await _tweetService.GetAllTweetsByAuthorId(authorId: userId);
+            var tweets = await _tweetService.GetAllTweets();
 
             return Ok(_mapper.Map<IEnumerable<TweetResponse>>(tweets));
         }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
         [HttpGet("{tweetId}")]
         public Task<IActionResult> GetById([FromRoute] long tweetId)
         {

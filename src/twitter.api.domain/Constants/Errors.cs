@@ -19,5 +19,7 @@
         public const string PageSizeCannotBeNullWhenIsPaginatedIsTrue = "Invalid 'PageSize' parameter with message: 'Cannot be null'.";
         public const string PageSizeCannotBeZeroOrLess = "Invalid 'PageSize' parameter with message: 'Cannot be zero or less'.";
         public const string UsernameAlreadyExists = "User name already exists";
+        public const string MissingUserIdHeader = "Missing X-User-Id header";
+        public const string InvalidUserIdHeader = "Invalid X-User-Id header";
     }
 }

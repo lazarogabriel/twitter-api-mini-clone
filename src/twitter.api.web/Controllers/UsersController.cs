@@ -8,6 +8,7 @@ using twitter.api.application.Services.Abstractions;
 using twitter.api.domain.Models;
 using twitter.api.web.Models.Responses;
 using twitter.api.web.Models;
+using System.Collections.Generic;
 
 namespace twitter.api.web.Controllers
 {
@@ -74,7 +75,7 @@ namespace twitter.api.web.Controllers
         }
 
         /// <summary>
-        /// Creates a new user.
+        /// Creates a new user (Solo para la evaluacion del ejercicio tecnico).
         /// </summary>
         /// <param name="request">The information required to create a user.</param>
         /// <returns>The created user.</returns>
@@ -91,13 +92,20 @@ namespace twitter.api.web.Controllers
         }
 
         /// <summary>
-        /// Gets a user's details by their ID.
+        /// Gets a list of all users in the system (Solo para la evaluacion del ejercicio tecnico).
         /// </summary>
-        /// <param name="userId">The user's identifier.</param>
-        /// <returns>The user details.</returns>
+        /// <returns>The users.</returns>
+        [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<BasicUserResponse>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            var users = await _userService.GetAllUsers();
+
+            return Ok(_mapper.Map<IEnumerable<BasicUserResponse>>(users));
+        }
+
+        [ApiExplorerSettings(IgnoreApi = true)]
         [HttpGet("{userId:guid}")]
-        [ProducesResponseType(typeof(User), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetUserById(Guid userId)
         {
             throw new NotImplementedException("Get user by id not implemented yet");
