@@ -8,6 +8,7 @@ using twitter.api.web.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
+var environment = builder.Environment.EnvironmentName;
 
 // Add services to the container.
 builder.Services.AddControllers();
@@ -22,7 +23,10 @@ builder.Services.AddTwitterSwagger();
 builder.Services.AddAutoMapper(typeof(Program));
 
 // Adds Database
-builder.Services.AddTwitterDatabase(config: configuration);
+if (environment != "IntegrationTest")
+{
+    builder.Services.AddTwitterDatabase(config: configuration);
+}
 
 // Adds http accesor
 builder.Services.AddHttpContextAccessor();
@@ -61,3 +65,6 @@ app.UseHttpsRedirection();
 app.MapControllers();
 
 app.Run();
+
+
+public partial class Program { }
