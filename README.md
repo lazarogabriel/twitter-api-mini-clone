@@ -1,4 +1,3 @@
-
 # 🐦 Twitter Clone
 
 ## Índice
@@ -19,7 +18,6 @@ Aplicación backend que simula funcionalidades simplificadas de Twitter:
 - Ver un timeline con los tweets de los usuarios seguidos
 - Endpoints para probar fácilmente el ejercicio.
 
----
 
 ## Supuestos técnicos y de negocio
 1. Todos los usuarios son válidos y se identifican por un `userId` que llega por el header `x-user-id`.
@@ -36,8 +34,6 @@ Aplicación backend que simula funcionalidades simplificadas de Twitter:
 12. La API sigue el estilo REST y devuelve respuestas en formato JSON.
 13. Todos los timestamps se almacenan en UTC.
 14. No se implementan mecanismos de protección contra spam o abuso, dado que no hay un sistema de autenticación.
-
----
   
 ## Tecnologías
 - .NET Core
@@ -45,9 +41,6 @@ Aplicación backend que simula funcionalidades simplificadas de Twitter:
 - Docker (para levantar servicios en tu local)
 - EF Core
 - XUnit, Moq
-
-
----
 
 ## Arquitectura Base
 
@@ -69,28 +62,25 @@ A continuación se muestran graficamente el contexto del sistema, como interactu
 
 ![Service layer component diagram](./docs/component-diagram.png)
 
-- **Modelo UML**: diagrama de clases que representa las relaciones entre `User`, `Tweet`, y `FollowRelationship`.
+**Modelo UML**: diagrama de clases que representa las relaciones entre `User`, `Tweet`, y `FollowRelationship`.
+
 ![UML del proyecto](/docs/uml.png)
 
-
----
 
 ## Optimización para Lectura
 -  `.AsNoTracking()` en EF Core para evitar overhead
 - Índices en `CreatedAt`, `UserId`, `FollowedUserId`
 - Endpoint `GET /timeline` trae solo lo necesario con `Select`
----
 
 
 ## Cómo levantar el proyecto
-
-### Requisitos previos:
+#### Requisitos previos:
 - Tener Docker y Docker Compose instalados.
 - Puerto **5000** disponible en local.
 
   
 
-### Pasos:
+#### Pasos:
 
 1. Clonar el repo:
 ```bash
@@ -126,8 +116,6 @@ exit       --  Salir  del  contenedor
 
 > También podés usar pgAdmin conectando a `localhost:5432` con usuario y contraseña configurados en el docker-compose.yml.
 
----
-
 ## Estructura del proyecto
 ```
 📁 src/
@@ -138,9 +126,6 @@ exit       --  Salir  del  contenedor
 📁 tests/
 └── (Tests unitarios y de integración)
 ```
-
----
-
 
 ## Propuesta de Escalabilidad - Ideal para Producción
 
