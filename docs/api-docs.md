@@ -1,5 +1,7 @@
 ## Endpoints Principales y Ejemplos de Uso
 
+[Manejo de errores](#manejo-de-errores)
+
 ### 1. Crear Usuario
 
 `POST /Users`
