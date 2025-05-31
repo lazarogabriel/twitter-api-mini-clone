@@ -86,6 +86,10 @@ namespace twitter.api.web.tests.Controllers
 
             Assert.Equal(paginatedResponse.TotalItems, response.TotalItems);
             Assert.Equal(paginatedResponse.Items.Count(), response.Items.Count());
+
+            _userContextMock.Verify();
+            _timelineQueryServiceMock.Verify();
+            _mapperMock.Verify();
         }
 
         [Fact]
@@ -122,7 +126,9 @@ namespace twitter.api.web.tests.Controllers
             await _classUnderTests.GetTimeline(page, pageSize);
 
             // Assert
+            _userContextMock.Verify();
             _timelineQueryServiceMock.Verify();
+            _mapperMock.Verify();
         }
 
         [Fact]
@@ -161,6 +167,10 @@ namespace twitter.api.web.tests.Controllers
             var response = Assert.IsType<PaginatedResponse<TweetResponse>>(okResult.Value);
 
             Assert.Empty(response.Items);
+
+            _userContextMock.Verify();
+            _timelineQueryServiceMock.Verify();
+            _mapperMock.Verify();
         }
     }
 }

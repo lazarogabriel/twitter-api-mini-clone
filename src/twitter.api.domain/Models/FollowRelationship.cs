@@ -19,6 +19,8 @@ namespace twitter.api.domain.Models
         {
             Follower = follower;
             Followed = followed;
+            FollowerId = follower.Id;
+            FollowedId = followed.Id;
             FollowedAt = DateTime.UtcNow;
         }
 
