@@ -5,7 +5,7 @@ workspace {
       description "Persona que interactúa con el clon de Twitter"
     }
 
-    system = softwareSystem "Clon de Twitter (Backend)" {
+    system = softwareSystem "Twitter Api (Backend)" {
 
       container_api = container "Presentation Layer" {
         technology "ASP.NET Core REST API (Dockerized)"
@@ -48,6 +48,7 @@ workspace {
       container_database = container "PostgreSQL Database" {
         technology "PostgreSQL 15 (Dockerized)"
         description "Base de datos relacional desplegada como contenedor Docker"
+        tag Database
       }
 
       container_infrastructure = container "Infrastructure Layer" {
@@ -70,6 +71,7 @@ workspace {
 
     http_client = softwareSystem "Cliente HTTP (Frontend o Swagger)" {
       description "Interfaz que el usuario usa para enviar peticiones HTTP a la API, como Swagger, Postman o una app web"
+      tag "WebBrowser"
     }
 
     // Relaciones entre actores y sistemas (¡ya definidos!)
@@ -78,7 +80,7 @@ workspace {
   }
 
   views {
-      systemContext system {
+     systemContext system {
         include system
         include user
         include http_client
@@ -119,6 +121,41 @@ workspace {
         timeline_query_service
       }
     }
+
+    styles {
+            element "Container" {
+                shape box
+            }
+
+            element "Person" {
+                shape person
+            }
+
+            element "PostgreSQL Write DB" {
+                shape cylinder
+            }
+
+            element "Database" {
+                shape cylinder
+            }
+
+            element "WebBrowser" {
+                shape webBrowser
+            }
+
+            element "MobileApp" {
+                shape MobileDeviceLandscape
+            }
+
+            element "Microservice" {
+                background #1E90FF
+                shape Hexagon
+            }
+      
+            element "Gateway" {
+                shape pipe
+            }
+        }
 
     theme default
   }
