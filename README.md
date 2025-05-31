@@ -7,8 +7,9 @@
 4. [Arquitectura Base](#arquitectura-base)
 5. [Optimización para Lectura](#optimización-para-lectura)
 6. [Cómo levantar el proyecto](#cómo-levantar-el-proyecto)
-7. [Estructura del proyecto](#estructura-del-proyecto)
-8. [Propuesta de Escalabilidad - Ideal para Producción](#propuesta-de-escalabilidad---ideal-para-producción)
+7. [Endpoints y manejo de errores](./docs/api-docs.md)
+8. [Estructura del proyecto](#estructura-del-proyecto)
+9. [Propuesta de Escalabilidad - Ideal para Producción](#propuesta-de-escalabilidad---ideal-para-producción)
 
   
 ## Descripción
@@ -84,37 +85,37 @@ A continuación se muestran graficamente el contexto del sistema, como interactu
 
 1. Clonar el repo:
 ```bash
-git  clone  https://github.com/lazarogabriel/twitter-api-mini-clone
-cd  twitter-api-mini-clone
+git clone https://github.com/lazarogabriel/twitter-api-mini-clone
+cd twitter-api-mini-clone
 ```
 
 2. Levantar los servicios:
 ```bash
-docker-compose  up  --build
+docker-compose up --build
 ```
 Esto crea y levanta los contenedores para la API, la base de datos PostgreSQL.
 La API estará disponible en `http://localhost:5000`
 
-Podés probar los endpoints usando Postman o cURL, o acceder directamente a la documentación generada con Swagger en `http://localhost:5000/swagger`.
+Podés probar los endpoints usando Postman o cURL, o acceder directamente a la documentación generada con Swagger en `http://localhost:5000/`.
 
  
 ### Acceso a la base de datos desde Docker (sin PostgreSQL instalado)
 Si no tenés PostgreSQL instalado localmente, podés acceder a la base de datos del proyecto directamente desde el contenedor de Docker para revisar las tablas, columnas y datos:
 
 ```bash
-docker  exec  -it  twitter_db  bash
+docker exec -it twitter_db bash
 
 # Dentro del contenedor:
-psql  -U  postgres  -d  TwitterMiniClone
+psql -U postgres -d TwitterMiniClone
 
 # Comandos dentro de psql:
-\dt        --  Ver  todas  las  tablas
-\d users  --  Ver  la  estructura  de  la  tabla  'users'
-\q         --  Salir  del  cliente  psql
-exit       --  Salir  del  contenedor
+\dt        --  Ver todas las tablas
+\d users   --  Ver la estructura de la tabla 'users'
+\q         --  Salir del cliente psql
+exit       --  Salir del contenedor
 ```
 
-> También podés usar pgAdmin conectando a `localhost:5432` con usuario y contraseña configurados en el docker-compose.yml.
+> \También podés usar pgAdmin conectando a `localhost:5432` con usuario y contraseña configurados en el docker-compose.yml.
 
 ## Estructura del proyecto
 ```
@@ -131,6 +132,21 @@ exit       --  Salir  del  contenedor
 
 ### Posibles mejoras:
 
-- Separación de APIs de lectura y escritura (CQRS básico)
-- Docker Compose con PostgreSQL, etc.
-- PostgreSQL replicado (read replica configurada con `pg_basebackup`)
+- Romper el monolito para que pase a ser una arquitectura distribuida de microservicios y usar
+cada interface de application como un service api
+- Separar APIs de lectura y escritura (CQRS básico)
+- Usar redis para optimizar los tiempos de respuesta y bajar la carga de lectura a la api
+- PostgreSQL replicado
+- Uso de un **API Gateway** (por ej. YARP, NGINX, AWS API Gateway) para:
+  - Routing
+  - Caching
+  - Load Balancing
+- TimelineService como microservicio independiente con réplica de solo lectura
+- Sincronización entre base de escritura y lectura vía:
+  - CDC (Change Data Capture)
+  - Event sourcing (ej: Kafka, RabbitMQ)
+- Circuit Breakers y Retry Policies (por ej. con Polly
+
+#### Diagrama de contenedores (C4 model)
+![Service layer component diagram](./docs/ideal-prod-container.png)
+> Se recomienda clickear en la foto para poder hacer zoom y explorar.
